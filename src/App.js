@@ -5,7 +5,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import Pizza from "./components/Pizza/Pizza";
+import Menu from "./components/Menu/Menu";
 
 const theme = createTheme({
   typography: {
@@ -23,7 +23,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <Navbar />
           <Switch>
-              <Pizza />
+            <Route exact path='/Pizzahouse/:category'>
+              <Menu />
+            </Route>  
           </Switch>
         </ThemeProvider>
       </Router>

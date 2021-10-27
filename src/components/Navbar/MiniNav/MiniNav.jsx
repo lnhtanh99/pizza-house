@@ -21,7 +21,7 @@ function MiniNav({ cartOpen }) {
                                     underline="none"
                                     color="inherit"
                                     key={index}
-                                    component={RouterLink} to={`/menu/${category}`}
+                                    component={RouterLink} to={`/Pizzahouse/${category}`}
                                     className={classes.links}
                                 >
                                     {category}

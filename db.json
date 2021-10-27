@@ -2,22 +2,22 @@
     "menu": [
         {
             "name": "Pizza Bò & Tôm Nướng Kiểu Mỹ - Surf & Turf",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Cà Chua, Xốt Phô Mai, Phô Mai Mozzarella, Tôm, Thịt Bò Mexico, Cà Chua, Hành Tây.",
             "image": {
-                "small": "../../assets/Surf-_-turf.jpg",
+                "small": "../../../assets/Surf-_-turf.jpg",
                 "big": "../../assets/Surf-_-turf-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Bánh Xèo Nhật - Okonomiyaki",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Sốt Mayonnaise, Sốt Teriyaki, Phô Mai Mozzarella, Bạch Tuộc, Tôm, Bắp Cải, Bột Rong Biển, Vẩy Cá Ngừ Bào.",
             "image": {
@@ -25,14 +25,14 @@
                 "big": "../../assets/Detail_hình+chi+tiết+sp_bánh+xèo+nhật.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Thập Cẩm Thượng Hạng - Extravaganza",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Cà Chua, Phô Mai Mozzarella, Xúc Xích Pepperoni, Thịt Dăm Bông, Xúc Xich Ý, Thịt Bò Viên, Ớt Chuông Xanh, Nấm Mỡ, Hành Tây, Ô-liu.",
             "image": {
@@ -40,14 +40,14 @@
                 "big": "../../assets/Extravaganza-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Hải Sản Xốt Mayonnaise - Ocean Mania",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Cà Chua, Phô Mai Mozzarella, Tôm, Mực, Thanh Cua, Hành Tây.",
             "image": {
@@ -55,29 +55,14 @@
                 "big": "../../assets/Ocean-mania-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
-            }
-        },
-        {
-            "name": "Pizza Hải Sản Xốt Mayonnaise - Ocean Mania",
-            "category": "pizza",
-            "type": "premium",
-            "description": "Xốt Cà Chua, Phô Mai Mozzarella, Tôm, Mực, Thanh Cua, Hành Tây.",
-            "image": {
-                "small": "../../assets/Ocean-mania.jpg",
-                "big": "../../assets/Ocean-mania-detail.jpg"
-            },
-            "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Hải Sản Nhiệt Đới Xốt Tiêu - Pizzamin Sea",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt tiêu đen, Phô Mai Mozzarella, Phô Mai Cheddar, Thơm, Hành Tây, Tôm, Mực.",
             "image": {
@@ -85,29 +70,29 @@
                 "big": "../../assets/Pizzaminsea-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Half Half",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
-            "description": "Pizza là sự kết hợp topping của pizza Ocean Mania và pizza Cheesy Chicken Bacon.",
+            "description": "Pizza là sự kết hợp topping của Pizza Ocean Mania và Pizza Cheesy Chicken Bacon.",
             "image": {
                 "small": "../../assets/Haft-haft.jpg",
                 "big": "../../assets/Haft-haft-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza 5 Loại Thịt Thượng Hạng - Meat Lovers",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Cà Chua, Phô Mai Mozzarella, Xúc Xích Pepperoni, Thịt Dăm Bông, Xúc Xich Ý, Thịt Bò Viên, Thịt Heo Muối.",
             "image": {
@@ -115,29 +100,29 @@
                 "big": "../../assets/meat-lover-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Xúc Xích Ý Truyền Thống - Pepperoni Feast",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Cà Chua, Phô Mai Mozzarella, Xúc Xích Pepperoni.",
             "image": {
-                "small": "../../assets/Pepperoni-feast.jpg",
+                "small": "../../assets/Pepperoni-feast-.jpg",
                 "big": "../../assets/Pepperoni-feast-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Gà Xốt Tương Kiểu Nhật - Teriyaki Chicken",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Teriyaki, Phô Mai Mozzarella, Mayonnaise, Gà, Nấm Mỡ, Hành Tây.",
             "image": {
@@ -145,14 +130,14 @@
                 "big": "../../assets/Teriyaki-chicken-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Hải Sản Xốt Cà Chua - Seafood Delight",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "premium",
             "description": "Xốt Cà Chua, Phô Mai Mozzarella, Tôm, Mực, Thanh Cua, Hành Tây.",
             "image": {
@@ -160,14 +145,14 @@
                 "big": "../../assets/Seafood-delight-detail.jpg"
             },
             "price": {
-                "7inch": "89.000",
-                "9inch": "169.000",
-                "12inch": "259.000"
+                "small": "89.000",
+                "medium": "169.000",
+                "big": "259.000"
             }
         },
         {
             "name": "Pizza Rau Củ Thập Cẩm - Veggie Mania",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "favorite",
             "description": "Xốt Cà Chua Hoặc Xốt Pesto, Phô Mai Mozzarella, Hành Tây, Ớt Chuông Xanh, Ô-liu, Nấm Mỡ, Cà Chua, Thơm (dứa).",
             "image": {
@@ -175,14 +160,14 @@
                 "big": "../../assets/Veggie-mania-detail.jpg"
             },
             "price": {
-                "7inch": "69.000",
-                "9inch": "139.000",
-                "12inch": "209.000"
+                "small": "69.000",
+                "medium": "139.000",
+                "big": "209.000"
             }
         },
         {
             "name": "Pizza Dăm Bông Dứa Kiểu Hawaii - Hawaiian",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "favorite",
             "description": "Xốt Cà Chua, Phô Mai Mozzarella, Thịt Dăm Bông, Thơm.",
             "image": {
@@ -190,14 +175,14 @@
                 "big": "../../assets/Hawaiian-detail.jpg"
             },
             "price": {
-                "7inch": "69.000",
-                "9inch": "139.000",
-                "12inch": "209.000"
+                "small": "69.000",
+                "medium": "139.000",
+                "big": "209.000"
             }
         },
         {
             "name": "Pizza Phô Mai Hảo Hạng - Cheese Mania",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "favorite",
             "description": "Xốt Cà Chua, phô Mai Mozzarella.",
             "image": {
@@ -205,14 +190,14 @@
                 "big": "../../assets/Cheese-mania-detail.jpg"
             },
             "price": {
-                "7inch": "69.000",
-                "9inch": "139.000",
-                "12inch": "209.000"
+                "small": "69.000",
+                "medium": "139.000",
+                "big": "209.000"
             }
         },
         {
             "name": "Pizza Gà Phô Mai Thịt Heo Xông Khói - Cheesy Chicken Bacon",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "favorite",
             "description": "Xốt Phô Mai, Thịt Gà, Thịt Heo Muối, Phô Mai Mozzarella, Cà Chua.",
             "image": {
@@ -220,14 +205,14 @@
                 "big": "../../assets/Cheesy-chicken-bacon-detail.jpg"
             },
             "price": {
-                "7inch": "69.000",
-                "9inch": "139.000",
-                "12inch": "209.000"
+                "small": "69.000",
+                "medium": "139.000",
+                "big": "209.000"
             }
         },
         {
             "name": "Pizza Bò Mê-Hi-Cô Thượng Hạng - Prime Beef",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "signature",
             "description": "Xốt phô mai, Xốt cà chua, bò viên kiểu Ý, thịt bò Mexico, hành tây, cà chua, phô mai Mozzarella.",
             "image": {
@@ -235,14 +220,14 @@
                 "big": "../../assets/Prime-beef-detail.jpg"
             },
             "price": {
-                "7inch": "129.000",
-                "9inch": "229.000",
-                "12inch": "329.000"
+                "small": "129.000",
+                "medium": "229.000",
+                "big": "329.000"
             }
         },
         {
             "name": "Pizza Hải Sản Kiểu Singapore - Singapore Style Seafood",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "signature",
             "description": "Xốt Singapore Cay, Phô Mai Mozzarella, Tôm, Thịt Cua, Hành Tây.",
             "image": {
@@ -250,24 +235,24 @@
                 "big": "../../assets/Singapore.jpg"
             },
             "price": {
-                "7inch": "129.000",
-                "9inch": "229.000",
-                "12inch": "329.000"
+                "small": "129.000",
+                "medium": "229.000",
+                "big": "329.000"
             }
         },
         {
             "name": "Pizza 4 Vị - Pizza Big 4",
-            "category": "pizza",
+            "category": "Pizza",
             "type": "signature",
-            "description": "Pizza là sự kết hợp của 4 loại pizza HAWAIIAN – OCEAN MANIA – TERIYAKI CHICKEN – SURF & TURF.",
+            "description": "Pizza là sự kết hợp của 4 loại Pizza HAWAIIAN – OCEAN MANIA – TERIYAKI CHICKEN – SURF & TURF.",
             "image": {
                 "small": "../../assets/4P.jpg",
                 "big": "../../assets/4P-detail.jpg"
             },
             "price": {
-                "7inch": "129.000",
-                "9inch": "229.000",
-                "12inch": "329.000"
+                "small": "129.000",
+                "medium": "229.000",
+                "big": "329.000"
             }
         }
     ]

@@ -94,7 +94,7 @@ function Navbar() {
                                         <MaterialLink
                                             underline="none"
                                             color="inherit"
-                                            component={RouterLink} to={`/menu/${nav}`}
+                                            component={RouterLink} to={`/${nav}`}
                                         >
                                             <ListItemText>
                                                 <span className={classes.drawerText}>{nav}</span>
