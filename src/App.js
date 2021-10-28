@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import Menu from "./components/Menu/Menu";
+import Footer from "./components/Footer/Footer";
 
 const theme = createTheme({
   typography: {
@@ -23,10 +24,11 @@ function App() {
         <ThemeProvider theme={theme}>
           <Navbar />
           <Switch>
-            <Route exact path='/Pizzahouse/:category'>
+            <Route exact path={['/','/Pizzahouse/:category']}>
               <Menu />
             </Route>  
           </Switch>
+          <Footer />
         </ThemeProvider>
       </Router>
     </div>

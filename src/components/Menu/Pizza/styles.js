@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
     filter: {
-        margin: '30px 20px',
+        margin: '30px 20px 0px',
         width: '130px',
         height: '60px',
     },
@@ -12,9 +12,12 @@ export const useStyles = makeStyles((theme) => ({
     title: {
         textTransform: 'uppercase',
         fontSize: '35px',
+        paddingTop: '50px',
+        fontWeight: 'bold',
     },
     starIcon: {
         fontSize: '30px',
+        margin: '0 10px',
     },
     size: {
         margin: 'auto',

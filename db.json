@@ -13,7 +13,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Bò", "Hải sản"]
         },
         {
             "name": "Pizza Bánh Xèo Nhật - Okonomiyaki",
@@ -28,7 +29,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Hải sản"]
         },
         {
             "name": "Pizza Thập Cẩm Thượng Hạng - Extravaganza",
@@ -43,7 +45,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Bò", "Heo"]
         },
         {
             "name": "Pizza Hải Sản Xốt Mayonnaise - Ocean Mania",
@@ -58,7 +61,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Hải sản"]
         },
         {
             "name": "Pizza Hải Sản Nhiệt Đới Xốt Tiêu - Pizzamin Sea",
@@ -73,7 +77,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Hải sản"]
         },
         {
             "name": "Half Half",
@@ -88,7 +93,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Hải sản", "Gà", "Heo"]
         },
         {
             "name": "Pizza 5 Loại Thịt Thượng Hạng - Meat Lovers",
@@ -103,7 +109,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Bò", "Heo"]
         },
         {
             "name": "Pizza Xúc Xích Ý Truyền Thống - Pepperoni Feast",
@@ -118,7 +125,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Heo"]
         },
         {
             "name": "Pizza Gà Xốt Tương Kiểu Nhật - Teriyaki Chicken",
@@ -133,7 +141,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Gà"]
         },
         {
             "name": "Pizza Hải Sản Xốt Cà Chua - Seafood Delight",
@@ -148,7 +157,8 @@
                 "small": "89.000",
                 "medium": "169.000",
                 "big": "259.000"
-            }
+            },
+            "filter": ["Hải sản"]
         },
         {
             "name": "Pizza Rau Củ Thập Cẩm - Veggie Mania",
@@ -163,7 +173,8 @@
                 "small": "69.000",
                 "medium": "139.000",
                 "big": "209.000"
-            }
+            },
+            "filter": ["Chay"]
         },
         {
             "name": "Pizza Dăm Bông Dứa Kiểu Hawaii - Hawaiian",
@@ -178,7 +189,8 @@
                 "small": "69.000",
                 "medium": "139.000",
                 "big": "209.000"
-            }
+            },
+            "filter": ["Heo"]
         },
         {
             "name": "Pizza Phô Mai Hảo Hạng - Cheese Mania",
@@ -193,7 +205,8 @@
                 "small": "69.000",
                 "medium": "139.000",
                 "big": "209.000"
-            }
+            },
+            "filter": ["Chay"]
         },
         {
             "name": "Pizza Gà Phô Mai Thịt Heo Xông Khói - Cheesy Chicken Bacon",
@@ -208,7 +221,8 @@
                 "small": "69.000",
                 "medium": "139.000",
                 "big": "209.000"
-            }
+            },
+            "filter": ["Gà", "Heo"]
         },
         {
             "name": "Pizza Bò Mê-Hi-Cô Thượng Hạng - Prime Beef",
@@ -223,7 +237,8 @@
                 "small": "129.000",
                 "medium": "229.000",
                 "big": "329.000"
-            }
+            },
+            "filter": ["Bò"]
         },
         {
             "name": "Pizza Hải Sản Kiểu Singapore - Singapore Style Seafood",
@@ -238,7 +253,8 @@
                 "small": "129.000",
                 "medium": "229.000",
                 "big": "329.000"
-            }
+            },
+            "filter": ["Hải sản"]
         },
         {
             "name": "Pizza 4 Vị - Pizza Big 4",
@@ -253,7 +269,8 @@
                 "small": "129.000",
                 "medium": "229.000",
                 "big": "329.000"
-            }
+            },
+            "filter": ["Bò", "Hải sản", "Gà", "Heo"]
         }
     ]
 }

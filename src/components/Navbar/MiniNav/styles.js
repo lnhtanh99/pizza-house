@@ -6,6 +6,7 @@ export const useStyles = makeStyles((theme) => ({
         color: 'black',
         fontFamily: 'Montserrat',
         borderBottom: '1px solid black',
+        marginTop: '84px',
     },
     cartOpen: {
         width: 'calc(100% - 470px)',

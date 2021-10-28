@@ -1,5 +1,6 @@
 import { useStyles } from './styles';
 import { useEffect, useState } from 'react';
+import { Box } from '@material-ui/core'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -10,7 +11,6 @@ function Menu() {
     const { category } = useParams();
     const [ pizzas, setPizzas ] = useState([]);
 
-    console.log(category);
     useEffect(() => {
         const fetchData = async () => {
             if(category){
@@ -24,7 +24,7 @@ function Menu() {
             } else {
                 try{
                     const { data } = await axios.get(`http://localhost:8080/menu/?category=Pizza`);
-                    console.log(data);
+                    setPizzas(data);
                 } 
                 catch(err){
                     console.error(err);
@@ -38,9 +38,9 @@ function Menu() {
 
     const classes = useStyles();
     return (
-        <>
-            { category === 'Pizza' ? <Pizza pizzas={pizzas}/> : <Other/> }
-        </>
+        <Box className={classes.root}>
+            { !category || category === 'Pizza' ? <Pizza pizzas={pizzas}/> : <Other/> }
+        </Box>
     )
 }
 

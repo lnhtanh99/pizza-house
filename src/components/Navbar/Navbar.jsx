@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Typography, Link as MaterialLink, Box, IconButton, Badge, Drawer, List, ListItem, ListItemText } from '@material-ui/core';
 import { LocalPizza, ShoppingCart, AccountCircle } from '@material-ui/icons';
 import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from './styles';
 
 import { useState } from 'react';
@@ -13,14 +14,27 @@ function Navbar() {
     const [cartOpen, setCartOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
-    const navLinks = ['Thực đơn', 'Khuyến Mãi', 'Theo dõi đơn hàng'];
+    const navLinks = [
+        {
+            name: 'Menu',
+            display: 'Thực đơn'
+        },
+        {
+            name: 'Promotions',
+            display: 'Khuyến Mãi'
+        },
+        {
+            name: 'Order',
+            display: 'Theo dõi đơn hàng'
+        }
+    ];
     const classes = useStyles();
     return (
         <>
             <AppBar
                 elevation={0}
                 className={classes.root}
-                position="static"
+                position="fixed"
             >
                 <Toolbar className={classes.wrapper}>
                     <Typography
@@ -32,15 +46,15 @@ function Navbar() {
                     </Typography>
                     <div className={classes.show}>
                         {
-                            navLinks && navLinks.map((nav, index) => (
+                            navLinks.map(nav => (
                                 <MaterialLink
                                     underline="none"
                                     color="inherit"
-                                    key={index}
+                                    key={nav.name}
                                     className={classes.links}
-                                    component={RouterLink} to={`/${nav}`}
+                                    component={RouterLink} to={`/${nav.name}`}
                                 >
-                                    {nav}
+                                    {nav.display}
                                 </MaterialLink>
                             ))
                         }
@@ -86,18 +100,24 @@ function Navbar() {
                 }}
             >
                 <Toolbar className={classes.drawerWrapper}>
+                    <IconButton
+                        onClick={() => setMenuOpen(false)}
+                        className={classes.closeBtn}
+                    >
+                        <ChevronLeftIcon />
+                    </IconButton>
                     <Box >
                         <List >
                             {
-                                navLinks && navLinks.map((nav, index) => (
+                                navLinks.map((nav, index) => (
                                     <ListItem key={index}>
                                         <MaterialLink
                                             underline="none"
                                             color="inherit"
-                                            component={RouterLink} to={`/${nav}`}
+                                            component={RouterLink} to={`/${nav.name}`}
                                         >
                                             <ListItemText>
-                                                <span className={classes.drawerText}>{nav}</span>
+                                                <span className={classes.drawerText}>{nav.display}</span>
                                             </ListItemText>
                                         </MaterialLink>
                                     </ListItem>
@@ -107,7 +127,7 @@ function Navbar() {
                     </Box>
                 </Toolbar>
             </Drawer>
-            <Cart cartOpen={cartOpen} setCartOpen={setCartOpen}/>
+            <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
             <MiniNav cartOpen={cartOpen} />
         </ >
     )
