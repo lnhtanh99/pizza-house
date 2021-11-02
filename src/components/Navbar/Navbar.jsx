@@ -16,7 +16,7 @@ function Navbar() {
 
     const navLinks = [
         {
-            name: 'Menu',
+            name: 'Pizza',
             display: 'Thực đơn'
         },
         {
@@ -52,7 +52,7 @@ function Navbar() {
                                     color="inherit"
                                     key={nav.name}
                                     className={classes.links}
-                                    component={RouterLink} to={`/${nav.name}`}
+                                    component={RouterLink} to={`/Pizzahouse/${nav.name}`}
                                 >
                                     {nav.display}
                                 </MaterialLink>
@@ -114,7 +114,8 @@ function Navbar() {
                                         <MaterialLink
                                             underline="none"
                                             color="inherit"
-                                            component={RouterLink} to={`/${nav.name}`}
+                                            component={RouterLink} to={`/Pizzahouse/${nav.name}`}
+                                            onClick={() => setMenuOpen(false)}
                                         >
                                             <ListItemText>
                                                 <span className={classes.drawerText}>{nav.display}</span>

@@ -271,6 +271,171 @@
                 "big": "329.000"
             },
             "filter": ["Bò", "Hải sản", "Gà", "Heo"]
+        },
+        {
+            "name": "Mì Ý Hải Sản Đút Lò",
+            "category": "Mì Ý",
+            "type": "Mì Ý",
+            "description": "Sauce mỳ cay nhẹ, tôm, thanh cua, mực, phô mai Mozzarella",
+            "image": "../../assets/pasta-hải-sản.jpg",
+            "price": "79.000"
+        },
+        {
+            "name": "Mì Ý Rau Củ Đút Lò",
+            "category": "Mì Ý",
+            "type": "Mì Ý",
+            "description": "Sauce mỳ cay nhẹ, nấm, ớt chuông xanh, cà chua, dứa, Olive đen, phô mai Mozzarella.",
+            "image": "../../assets/pasta-rau-cu.jpg",
+            "price": "79.000"
+        },
+        {
+            "name": "Mì Ý Bò Bằm Đút Lò",
+            "category": "Mì Ý",
+            "type": "Mì Ý",
+            "description": "Sauce mỳ bò bằm, phô mai Mozzarella",
+            "image": "../../assets/pasta-bo-bam.jpg",
+            "price": "79.000"
+        },
+        {
+            "name": "Gà Không Xương BBQ",
+            "category": "Món phụ",
+            "type": "GÀ",
+            "description": "Gà Không Xương tẩm bột ăn cùng xốt BBQ ngon tuyệt.",
+            "image": "../../assets/MENU-PC_GÀ-KHÔNG-XƯƠNG-BBQ.jpg",
+            "price": "69.000"
+        },
+        {
+            "name": "Gà Tẩm Bột Phô Mai",
+            "category": "Món phụ",
+            "type": "GÀ",
+            "description": "Gà tẩm bột với phô mai thơm béo, phủ thêm lớp thịt heo xông khói ăn cùng với xốt BBQ.",
+            "image": "../../assets/MENU-PC_Gà-Tẩm-Bột-Phô-Mai.jpg",
+            "price": "69.000"
+        },
+        {
+            "name": "Cánh Gà BBQ Kiểu Mỹ (4 miếng)",
+            "category": "Món phụ",
+            "type": "GÀ",
+            "description": "Cánh gà nướng ăn kèm với xốt BBQ độc quyền.",
+            "image": "../../assets/MENU-PC_Cánh-Gà-BBQ-Kiểu-Mỹ-.jpg",
+            "price": "79.000"
+        },
+        {
+            "name": "Cánh Gà BBQ Kiểu Mỹ (6 miếng)",
+            "category": "Món phụ",
+            "type": "GÀ",
+            "description": "Cánh gà nướng ăn kèm với xốt BBQ độc quyền.",
+            "image": "../../assets/MENU-PC_Cánh-Gà-BBQ-Kiểu-Mỹ-.jpg",
+            "price": "99.000"
+        },
+        {
+            "name": "Xúc Xích Xông Khói Đút Lò (4 miếng)",
+            "category": "Món phụ",
+            "type": "XÚC XÍCH",
+            "description": "Xúc xích xông khói ăn kèm với xốt BBQ thơm ngon.",
+            "image": "../../assets/MENU-PC_Xúc-Xích-Xông-Khói-Đút-Lò+-+Copy.jpg",
+            "price": "39.000"
+        },
+        {
+            "name": "Xúc Xích Xông Khói Đút Lò (8 miếng)",
+            "category": "Món phụ",
+            "type": "XÚC XÍCH",
+            "description": "Xúc xích xông khói ăn kèm với xốt BBQ thơm ngon.",
+            "image": "../../assets/MENU-PC_Xúc-Xích-Xông-Khói-Đút-Lò+-+Copy.jpg",
+            "price": "69.000"
+        },
+        {
+            "name": "Khoai Tây Phô Mai Đút Lò",
+            "category": "Món phụ",
+            "type": "KHOAI TÂY",
+            "description": "Khoai tây cùng phô mai béo ngậy nướng qua lò với thịt heo hun khói.",
+            "image": "../../assets/MENU-PC_Khoai-Tây-Phô-Mai-Đút-Lò.jpg",
+            "price": "69.000"
+        },
+        {
+            "name": "Pizza Sô-Cô-La",
+            "category": "Tráng miệng",
+            "type": "TRÁNG MIỆNG",
+            "description": "Xốt kem, phô mai, Socola Sauce và Mix Socola Chip (đen+ trắng).",
+            "image": "../../assets/Choco-pizza.jpg",
+            "price": "59.000"
+        },
+        {
+            "name": "Lon coca zero 330ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/coke-zero.jpg",
+            "price": "20.000"
+        },
+        {
+            "name": "Chai coca 390ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/coke-390.jpg",
+            "price": "20.000"
+        },
+        {
+            "name": "Chai fanta 390ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/fanta-390.jpg",
+            "price": "20.000"
+        },
+        {
+            "name": "Chai sprite 390ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/sprite-390.jpg",
+            "price": "20.000"
+        },
+        {
+            "name": "Nước suối Dasani 500ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/daisani.jpg",
+            "price": "20.000"
+        },
+        {
+            "name": "Lon coca plus 330ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/coke-light.jpg",
+            "price": "20.000"
+        },
+        {
+            "name": "Trà chanh sả 350ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/chanh-sa.jpg",
+            "price": "25.000"
+        },
+        {
+            "name": "Trà đào hạt chia 350ml",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/dao-hat-chia.jpg",
+            "price": "25.000"
+        },
+        {
+            "name": "Chai Coca 1.5L",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/coke-1.5.jpg",
+            "price": "39.000"
+        },
+        {
+            "name": "Chai Fanta 1.5L",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/fanta-1.5.jpg",
+            "price": "39.000"
+        },
+        {
+            "name": "Chai Sprite 1.5L",
+            "category": "Nước uống",
+            "type": "GIẢI KHÁT",
+            "image": "../../assets/Sprite-1.5L.jpg",
+            "price": "39.000"
         }
     ]
 }

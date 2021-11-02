@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
+import PizzaProvider from './context/PizzaContext'
 
 const theme = createTheme({
   typography: {
@@ -19,7 +20,7 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div className="App">
+    <PizzaProvider>
       <Router>
         <ThemeProvider theme={theme}>
           <Navbar />
@@ -31,7 +32,7 @@ function App() {
           <Footer />
         </ThemeProvider>
       </Router>
-    </div>
+    </PizzaProvider>
   );
 }
 
