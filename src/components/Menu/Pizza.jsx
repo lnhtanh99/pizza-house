@@ -3,7 +3,7 @@ import Content from './Content';
 
 function Pizza({ chosenPizza }) {
     return (
-        <>
+        <div>
             {chosenPizza.filter(pizza => pizza.type === 'premium').length > 0 ?
                 <>
                     <Title
@@ -51,7 +51,7 @@ function Pizza({ chosenPizza }) {
                 </>
                 : null
             }
-        </>
+        </div>
     )
 }
 

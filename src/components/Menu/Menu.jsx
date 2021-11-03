@@ -9,6 +9,7 @@ import { PizzaContext } from '../../context/PizzaContext';
 
 import Pizza from './Pizza';
 import Other from './Other';
+import Modal from '../Modal/Modal';
 
 function Menu() {
     const { category } = useParams();
@@ -77,12 +78,14 @@ function Menu() {
                     </Button>
                 )) : null}
                 <Container className={classes.container}>
-                    {isPizza ? <Pizza chosenPizza={chosenPizza} />
+                    {isPizza ? <Pizza chosenPizza={chosenPizza}/>
                         : <Other others={chosenOther} />
                     }
+                    <Modal />
                 </Container>
             </>
         </Box>
+
     )
 }
 

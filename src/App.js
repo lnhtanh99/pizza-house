@@ -1,13 +1,16 @@
-import Navbar from "./components/Navbar/Navbar";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+
+import Navbar from "./components/Navbar/Navbar";
 import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
-import PizzaProvider from './context/PizzaContext'
+
+import PizzaProvider from './context/PizzaContext';
 
 const theme = createTheme({
   typography: {

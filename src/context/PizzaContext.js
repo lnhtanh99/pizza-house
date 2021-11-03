@@ -7,9 +7,11 @@ import vegImage from '../assets/leafy-green_1f96c.png';
 
 export const PizzaContext = createContext();
 
-
 function PizzaProvider({ children }) {
     const [isPizza, setIsPizzas] = useState(true);
+    const [openModal, setOpenModal] = useState(false);
+    const [select, setSelect] = useState({});
+
     const filters = [
         {
             name: 'Tất cả',
@@ -36,8 +38,27 @@ function PizzaProvider({ children }) {
         }
     ]
 
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    }
+    
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    }
+
     return (
-        <PizzaContext.Provider value={{ isPizza, setIsPizzas, filters }}>
+        <PizzaContext.Provider 
+            value={{ 
+                isPizza, 
+                setIsPizzas, 
+                filters,
+                openModal, 
+                handleOpenModal,
+                handleCloseModal,
+                select,
+                setSelect
+            }}
+        >
             {children}
         </PizzaContext.Provider>
     )

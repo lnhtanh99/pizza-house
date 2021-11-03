@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 function Other({ others }) {
     const { category } = useParams();
+
     return (
         <>
             <Title others={others} type={category}/>
