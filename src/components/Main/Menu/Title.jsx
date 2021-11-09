@@ -2,7 +2,7 @@ import { useStyles } from './styles';
 import { Typography, Grid } from '@material-ui/core';
 import { Star } from '@material-ui/icons';
 
-import { PizzaContext } from '../../context/PizzaContext';
+import { PizzaContext } from '../../../context/PizzaContext';
 import { useContext } from 'react';
 
 function Title({ smallPrice, mediumPrice, bigPrice, type, other }) {

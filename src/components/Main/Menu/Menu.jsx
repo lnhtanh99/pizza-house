@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { PizzaContext } from '../../context/PizzaContext';
+import { PizzaContext } from '../../../context/PizzaContext';
 
 import Pizza from './Pizza';
 import Other from './Other';

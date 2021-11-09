@@ -2,7 +2,7 @@ import { useStyles } from './styles';
 import { Grid, Typography, Card, CardMedia, CardContent } from '@material-ui/core';
 
 import { useContext } from 'react';
-import { PizzaContext } from '../../context/PizzaContext';
+import { PizzaContext } from '../../../context/PizzaContext';
 
 function Content({ pizzas, type, others }) {
     const classes = useStyles();

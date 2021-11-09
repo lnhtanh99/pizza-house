@@ -1,6 +1,6 @@
 import { Drawer, Toolbar, Typography, Box, IconButton } from '@material-ui/core';
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import images from '../../assets/empty-cart.svg';
+import images from '../../../assets/empty-cart.svg';
 import { useStyles } from './styles';
 
 function Cart({ cartOpen, setCartOpen }) {

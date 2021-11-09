@@ -7,7 +7,7 @@ import { useStyles } from './styles';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import Cart from '../Cart/Cart';
+import Cart from '../Main/Cart/Cart';
 import MiniNav from './MiniNav/MiniNav';
 
 function Navbar() {

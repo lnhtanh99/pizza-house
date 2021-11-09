@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
-import Menu from "./components/Menu/Menu";
+import Menu from "./components/Main/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 
 import PizzaProvider from './context/PizzaContext';
+import Admin from './components/Admin/Admin';
 
 const theme = createTheme({
   typography: {
@@ -31,6 +32,9 @@ function App() {
             <Route exact path={['/','/Pizzahouse/:category']}>
               <Menu />
             </Route>  
+            <Route exact path='/admin'>
+              <Admin />
+            </Route>
           </Switch>
           <Footer />
         </ThemeProvider>

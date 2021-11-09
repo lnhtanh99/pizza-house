@@ -1,5 +1,5 @@
 import { Modal as MUIModal, Box, Typography } from '@material-ui/core';
-import { PizzaContext } from '../../context/PizzaContext';
+import { PizzaContext } from '../../../context/PizzaContext';
 import { useContext } from 'react';
 import { useStyles } from './styles';
 import axios from 'axios';
