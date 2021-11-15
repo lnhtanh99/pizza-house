@@ -1,7 +1,6 @@
 import { useStyles } from './styles';
 import { Box, Button, Avatar, Container } from '@material-ui/core';
 
-import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -11,6 +10,8 @@ import Pizza from './Pizza';
 import Other from './Other';
 import Modal from '../Modal/Modal';
 
+import useData from '../../../hooks/useData';
+
 function Menu() {
     const { category } = useParams();
     const [menu, setMenu] = useState([]);
@@ -18,40 +19,28 @@ function Menu() {
     const [chosenPizza, setChosenPizza] = useState([]);
     const [chosenOther, setChosenOther] = useState([]);
 
+    const { docs } = useData(category);
+
     useEffect(() => {
-        const fetchData = async () => {
-            if (category) {
-                try {
-                    const { data } = await axios.get(`http://localhost:8080/menu/?category=${category}`);
-                    setMenu(data);
-                    if (category === 'Pizza') {
-                        setChosenPizza(data);
-                        setIsPizzas(true);
-                    } else {
-                        setIsPizzas(false);
-                        setChosenOther(data);
-                    }
-                }
-                catch (err) {
-                    console.error(err);
+        const fetchData = () => {
+            setMenu(docs);
+            if(category) {    
+                if (category === 'Pizza') {
+                    setChosenPizza(docs);
+                    setIsPizzas(true);
+                } else {
+                    setIsPizzas(false);
+                    setChosenOther(docs);
                 }
             } else {
-                try {
-                    const { data } = await axios.get(`http://localhost:8080/menu/?category=Pizza`);
-                    setMenu(data);
-                    setChosenPizza(data);
-                }
-                catch (err) {
-                    console.error(err);
-                }
+                setChosenPizza(docs);
             }
-
         }
-
         fetchData();
-    }, [category, setIsPizzas]);
+    }, [category, setIsPizzas, docs]);
 
     const classes = useStyles();
+
 
     const handleFilter = (event) => {
         if (event.currentTarget.value === 'Tất cả') {
@@ -78,7 +67,7 @@ function Menu() {
                     </Button>
                 )) : null}
                 <Container className={classes.container}>
-                    {isPizza ? <Pizza chosenPizza={chosenPizza}/>
+                    {isPizza ? <Pizza chosenPizza={chosenPizza} />
                         : <Other others={chosenOther} />
                     }
                     <Modal />

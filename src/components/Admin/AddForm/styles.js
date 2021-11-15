@@ -7,7 +7,13 @@ export const useStyles = makeStyles((theme) => ({
         maxWidth: '600px',
     },
     title: {
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
         paddingTop: '30px'
+    },
+    subtitle: {
+        fontSize: '13px',
+        paddingBottom: '30px'
     },
     form: {
         width: '400px',

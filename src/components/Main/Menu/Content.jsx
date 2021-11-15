@@ -17,7 +17,7 @@ function Content({ pizzas, type, others }) {
                             <Card className={classes.card} onClick={() => setSelect(filteredPizza)}>
                                 <CardMedia
                                     component="img"
-                                    image={filteredPizza.image.small}
+                                    image={filteredPizza.image}
                                     className={classes.img}
                                 />
                                 <CardContent>
@@ -25,7 +25,7 @@ function Content({ pizzas, type, others }) {
                                         <span className={classes.name}>{filteredPizza.name}</span>
                                     </Typography>
                                     <Typography variant="body2">
-                                        <span className={classes.price}>{filteredPizza.price.small} đ</span>
+                                        <span className={classes.price}>{filteredPizza.priceSmall} đ</span>
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -48,7 +48,7 @@ function Content({ pizzas, type, others }) {
                                         <span className={classes.name}>{other.name}</span>
                                     </Typography>
                                     <Typography variant="body2">
-                                        <span className={classes.price}>{other.price} đ</span>
+                                        <span className={classes.price}>{other.priceSmall} đ</span>
                                     </Typography>
                                 </CardContent>
                             </Card>

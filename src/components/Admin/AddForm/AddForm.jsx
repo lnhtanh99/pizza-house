@@ -1,12 +1,10 @@
-import { useState, useEffect } from 'react';
-import useStorage from '../../../hooks/useStorage';
+import { useState } from 'react';
 import { Container, FormControl, InputLabel, Typography, Box, TextField, Select, Button, MenuItem, Input, Checkbox, FormGroup, FormControlLabel, FormLabel } from '@material-ui/core'
 import { useStyles } from './styles';
-import { projectFirestore } from '../../../firebase/config';
+import { projectFirestore, projectStorage } from '../../../firebase/config';
 
 function AddForm() {
-    const [file, setFile] = useState('');
-    const [error, setError] = useState('');
+    const [fileURL, setFileURL] = useState('');
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [type, setType] = useState('');
@@ -14,34 +12,52 @@ function AddForm() {
     const [priceSmall, setPriceSmall] = useState('');
     const [priceMedium, setPriceMedium] = useState('');
     const [priceBig, setPriceBig] = useState('');
-    const [filter, setFilter] = useState([]);
-    const [selectedFilter, setSelectedFilter] = useState('');
+    const filter = [
+        {
+            name: 'Bò'
+        },
+        {
+            name: 'Gà'
+        },
+        {
+            name: 'Heo'
+        },
+        {
+            name: 'Hải sản'
+        },
+        {
+            name: 'Chay'
+        },
+    ];
+    const [selectedFilter, setSelectedFilter] = useState([]);
     const [isPizza, setIsPizza] = useState(false);
 
-    useEffect(() => {
-        setFile(file);
-    }, [file])
-
-    const types = ['image/png', 'image/jpeg', 'image/jpg'];
     const classes = useStyles();
 
-    const handleUpload = (event) => {
-        let selected = event.target.files[0];
-
-        if (selected && types.includes(selected.type)) {
-            setFile(selected);
-            setError('');
-        } else {
-            setFile('');
-            setError('Please select an image file (png, jpeg, jpg)');
-        }
+    const handleUpload = async (event) => {
+        const file = event.target.files[0];
+        const storageRef = projectStorage.ref(file.name);
+        await storageRef.put(file);
+        setFileURL(await storageRef.getDownloadURL());
     }
 
-    const { url } = useStorage(file);
+    const handleFilter = (name) => {
+        let selected = selectedFilter
+        let find = selected.indexOf(name)
 
-    const handleFilter = (event) => {
-        setSelectedFilter(event.target.value);
-        filter.push(selectedFilter);
+        if (find > -1) {
+            selected.splice(find, 1)
+        } else {
+            selected.push(name)
+        }
+
+        if (isPizza) {
+            setSelectedFilter(selected);
+        } else {
+            setSelectedFilter([]);
+        }
+
+
     }
 
     const handleCategory = (event) => {
@@ -70,7 +86,8 @@ function AddForm() {
             priceSmall,
             priceMedium,
             priceBig,
-            image: url
+            image: fileURL,
+            filter: selectedFilter,
         });
         setName('');
         setCategory('');
@@ -86,7 +103,17 @@ function AddForm() {
             <Typography variant="h4" className={classes.title}>
                 Thêm sản phẩm
             </Typography>
+            <Typography variant="h5" className={classes.subtitle}>
+                Vui lòng điền đủ thông tin sản phẩm
+            </Typography>
             <Box className={classes.form}>
+                <InputLabel>Chọn ảnh</InputLabel>
+                <Input
+                    type="file"
+                    fullWidth
+                    onChange={handleUpload}
+                    className={classes.input}
+                />
                 <TextField
                     label="Tên sản phẩm"
                     fullWidth
@@ -122,14 +149,18 @@ function AddForm() {
                         }
                     </FormControl>
                 }
-                <TextField
-                    label="Description"
-                    multiline
-                    fullWidth
-                    placeholder="Description"
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                />
+                {
+                    category !== 'Nước uống' &&
+                    <TextField
+                        label="Description"
+                        multiline
+                        fullWidth
+                        placeholder="Description"
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                    />
+                }
+
                 {isPizza ?
                     <>
                         <Input
@@ -168,29 +199,29 @@ function AddForm() {
                         onChange={handlePrice}
                     />
                 }
+                {isPizza &&
 
-                <FormControl fullWidth>
-                    <FormLabel component="legend">Choose filter</FormLabel>
-                    <FormGroup onChange={handleFilter}>
-                        <FormControlLabel
-                            control={<Checkbox />}
-                            label="Hải sản"
-                            value="Hải sản"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox />}
-                            label="Bò"
-                            value="Bò"
-                        />
-                    </FormGroup>
-                </FormControl>
-                {error && <div>{error}</div>}
-                <Input
-                    type="file"
-                    fullWidth
-                    onChange={handleUpload}
-                    className={classes.input}
-                />
+                    <FormControl fullWidth>
+                        <FormLabel component="legend">Choose filter</FormLabel>
+                        <FormGroup>
+                            {
+                                filter.map(item => {
+                                    return (
+
+                                        <FormControlLabel
+                                            key={item.name}
+                                            control={<Checkbox />}
+                                            label={item.name}
+                                            value={item.name}
+                                            selected={selectedFilter.includes(item.name)}
+                                            onChange={() => handleFilter(item.name)}
+                                        />
+                                    )
+                                })
+                            }
+                        </FormGroup>
+                    </FormControl>
+                }
                 <Button
                     className={classes.btn}
                     variant="contained"
