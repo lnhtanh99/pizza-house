@@ -9,9 +9,14 @@ import {
 import Navbar from "./components/Navbar/Navbar";
 import Menu from "./components/Main/Menu/Menu";
 import Footer from "./components/Footer/Footer";
-
+import Order from './components/Main/Order/Order';
 import PizzaProvider from './context/PizzaContext';
 import Admin from './components/Admin/Admin';
+import Bill from './components/Main/Bill/Bill'
+
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { projectAuth } from './firebase/config';
 
 const theme = createTheme({
   typography: {
@@ -23,17 +28,26 @@ const theme = createTheme({
 });
 
 function App() {
+  const [user] = useAuthState(projectAuth);
+
   return (
     <PizzaProvider>
       <Router>
         <ThemeProvider theme={theme}>
           <Navbar />
           <Switch>
-            <Route exact path={['/','/Pizzahouse/:category']}>
+            <Route exact path={['/', '/Pizzahouse/:category']}>
               <Menu />
-            </Route>  
+            </Route>
+            <Route exact path="/Bill">
+              {user && <Bill />}
+            </Route>
+            <Route exact path="/Order">
+              <Order />
+            </Route>
             <Route exact path='/admin'>
-              <Admin />
+              {user && user.uid === 'uuImkLWmCieMqZEoteIfTM2ZTz92' ?
+                <Admin /> : null}
             </Route>
           </Switch>
           <Footer />

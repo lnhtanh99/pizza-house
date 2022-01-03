@@ -21,6 +21,11 @@ export const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         paddingTop: '5px'
     },
+    price: {
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        fontSize: '25px'
+    },
     btn: {
         padding: '10px 30px',
         marginTop: '30px',

@@ -11,6 +11,7 @@ function PizzaProvider({ children }) {
     const [isPizza, setIsPizzas] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [select, setSelect] = useState({});
+    const [userCart, setUserCart] = useState([]);
 
     const filters = [
         {
@@ -53,10 +54,13 @@ function PizzaProvider({ children }) {
                 setIsPizzas, 
                 filters,
                 openModal, 
+                setOpenModal,
                 handleOpenModal,
                 handleCloseModal,
                 select,
-                setSelect
+                setSelect,
+                userCart,
+                setUserCart,
             }}
         >
             {children}

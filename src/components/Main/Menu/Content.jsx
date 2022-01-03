@@ -8,6 +8,10 @@ function Content({ pizzas, type, others }) {
     const classes = useStyles();
     const { isPizza, setSelect, handleOpenModal } = useContext(PizzaContext);
 
+    const currencyFormat = (num) => {
+        return Intl.NumberFormat('en-US').format(num);
+    }
+
     return (
         <Grid container spacing={4}>
             {isPizza ?
@@ -25,7 +29,7 @@ function Content({ pizzas, type, others }) {
                                         <span className={classes.name}>{filteredPizza.name}</span>
                                     </Typography>
                                     <Typography variant="body2">
-                                        <span className={classes.price}>{filteredPizza.priceSmall} đ</span>
+                                        <span className={classes.price}>{currencyFormat(filteredPizza.priceSmall)} đ</span>
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -48,7 +52,7 @@ function Content({ pizzas, type, others }) {
                                         <span className={classes.name}>{other.name}</span>
                                     </Typography>
                                     <Typography variant="body2">
-                                        <span className={classes.price}>{other.priceSmall} đ</span>
+                                        <span className={classes.price}>{currencyFormat(other.priceSmall)} đ</span>
                                     </Typography>
                                 </CardContent>
                             </Card>

@@ -1,12 +1,73 @@
 import { Modal as MUIModal, Box, Typography, Card, CardMedia, CardContent, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Button } from '@material-ui/core';
 import { PizzaContext } from '../../../context/PizzaContext';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useStyles } from './styles';
 
+import firebase from 'firebase/app';
+import { projectFirestore, projectAuth } from '../../../firebase/config';
+import { useAuthState } from "react-firebase-hooks/auth";
+
 function Modal() {
-    const { openModal, handleCloseModal, select, isPizza } = useContext(PizzaContext);
+    const { openModal, setOpenModal, handleCloseModal, select, isPizza } = useContext(PizzaContext);
+    const [user] = useAuthState(projectAuth);
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [size, setSize] = useState('Cỡ 7 inch');
+    const [price, setPrice] = useState('');
+    const [base, setBase] = useState('Đế vừa');
+
     const classes = useStyles();
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setName(select.name);
+        setDescription(select.description);
+        if (user) {
+            if (isPizza) {
+                projectFirestore.collection('cart').add({
+                    name,
+                    description,
+                    size,
+                    price,
+                    base,
+                    quantity: 1,
+                    uid: user.uid,
+                })
+            } else {
+                projectFirestore.collection('cart').add({
+                    name,
+                    description,
+                    price,
+                    quantity: 1,
+                    uid: user.uid,
+                })
+            }
+        } else {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            projectAuth.signInWithPopup(provider);
+        }
+
+        setOpenModal(false);
+    }
+
+    const currencyFormat = (num) => {
+        return Intl.NumberFormat('en-US').format(num);
+    }
+
+    useEffect(() => {
+        setName(select.name);
+        setDescription(select.description);
+        setPrice(select.priceSmall);
+        if (size === 'Cỡ 9 inch') {
+            setPrice(select.priceMedium);
+        } else if (size === 'Cỡ 12 inch') {
+            setPrice(select.priceBig);
+        } else {
+            setPrice(select.priceSmall);
+        }
+
+    }, [select, size]);
     return (
         <MUIModal
             open={openModal}
@@ -37,8 +98,9 @@ function Modal() {
                                     </FormLabel>
                                     <RadioGroup
                                         aria-label="gender"
-                                        defaultValue="Đế vừa"
                                         name="radio-buttons-group"
+                                        value={base}
+                                        onChange={(event) => setBase(event.target.value)}
                                     >
                                         <FormControlLabel value="Đế dày xốp" control={<Radio />} label="Đế dày xốp" />
                                         <FormControlLabel value="Đế vừa" control={<Radio />} label="Đế vừa" />
@@ -54,37 +116,26 @@ function Modal() {
                                     </FormLabel>
                                     <RadioGroup
                                         aria-label="gender"
-                                        defaultValue="Cỡ 9 inch"
                                         name="radio-buttons-group"
+                                        onChange={(event) => setSize(event.target.value)}
+                                        value={size}
                                     >
                                         <FormControlLabel value="Cỡ 7 inch" control={<Radio />} label="Cỡ 7 inch" />
                                         <FormControlLabel value="Cỡ 9 inch" control={<Radio />} label="Cỡ 9 inch" />
                                         <FormControlLabel value="Cỡ 12 inch" control={<Radio />} label="Cỡ 12 inch" />
                                     </RadioGroup>
                                 </FormControl>
-                                <FormControl fullWidth>
-                                    <FormLabel
-                                        component="legend"
-                                        className={classes.radioTitle}
-                                    >
-                                        Chọn cỡ bánh
-                                    </FormLabel>
-                                    <RadioGroup
-                                        aria-label="gender"
-                                        name="radio-buttons-group"
-                                    >
-                                        <FormControlLabel value="Thêm phomai" control={<Radio />} label="Thêm phomai" />
-                                        <FormControlLabel value="Gấp đôi phomai" control={<Radio />} label="Gấp đôi phomai" />
-                                        <FormControlLabel value="Gấp ba phomai" control={<Radio />} label="Gấp ba phomai" />
-                                    </RadioGroup>
-                                </FormControl>
                             </>
                         }
+                        <Typography className={classes.price}>
+                            Giá tiền: {currencyFormat(price)} đ
+                        </Typography>
                     </CardContent>
                     <Button
                         className={classes.btn}
                         variant="contained"
                         color="secondary"
+                        onClick={handleSubmit}
                     >
                         Thêm vào giỏ hàng
                     </Button>
