@@ -46,7 +46,7 @@ function App() {
               <Order />
             </Route>
             <Route exact path='/admin'>
-              {user && user.uid === 'uuImkLWmCieMqZEoteIfTM2ZTz92' ?
+              {user && user.uid === 'uuImkLWmCieMqZEoteIfTM2ZTz92'  ?
                 <Admin /> : null}
             </Route>
           </Switch>
