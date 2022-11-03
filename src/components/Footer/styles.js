@@ -1,6 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
+    footer: {
+        top: 'auto',
+        bottom: 0,
+    },
     logo: {
         fontSize: '35px',
     },

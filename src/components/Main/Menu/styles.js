@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
     root: {
-        marginBottom: '100px'
+        marginBottom: '100px',
     },
     filter: {
         margin: '30px 20px 0px',

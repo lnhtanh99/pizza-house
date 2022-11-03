@@ -21,11 +21,17 @@ export const useStyles = makeStyles((theme) => ({
     },
     links: {
         padding: '21px',
-        margin: '0 25px',
+        [theme.breakpoints.down('sm')]: {
+            margin: '0 8px',
+        },
+        [theme.breakpoints.up('md')]: {
+            margin: '0 25px',
+        },
         fontWeight: 'bold',
         "&:hover": {
             borderBottom: '3px solid red'
         },
-        fontSize: '15px'
+        fontSize: '15px',
+        cursor: 'pointer'
     }
 }));

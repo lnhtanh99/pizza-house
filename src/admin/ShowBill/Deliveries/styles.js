@@ -10,8 +10,20 @@ export const useStyles = makeStyles((theme) => ({
     },
     itemName: {
         fontWeight: 'bold',
+        padding: '20px 0'
+    },
+    tableItem: {
+        paddingBottom: '10px'
+    },
+    itemQuantity: {
+        paddingBottom: '60px',
+        paddingTop: '20px',
     },
     icon: {
         cursor: 'pointer'
+    },
+    container: {
+        paddingBottom: '120px',
+        textAlign: 'center'
     }
 }));

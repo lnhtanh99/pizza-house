@@ -26,13 +26,13 @@ export const useStyles = makeStyles((theme) => ({
         textTransform: 'uppercase',
         cursor: 'pointer',
         "&:hover": {
-            backgroundColor: '#686de0'
+            backgroundColor: '#00628f'
         },
        
     },
     iconButtons: {
         "&:hover": {
-            backgroundColor: '#686de0'
+            backgroundColor: '#00628f'
         },
         margin: '0 10px',
     },

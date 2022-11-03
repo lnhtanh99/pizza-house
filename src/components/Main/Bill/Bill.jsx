@@ -6,16 +6,15 @@ import { PizzaContext } from '../../../context/PizzaContext';
 import { projectFirestore, projectAuth } from '../../../firebase/config';
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function Bill() {
     const classes = useStyles();
-    const { userCart } = useContext(PizzaContext);
-    const [userName, setUserName] = useState('');
+    const { userCart, currentCart, total } = useContext(PizzaContext);
     const [userAddress, setUserAddress] = useState('');
     const [userNumber, setUserNumber] = useState('');
-    const [billTotal, setBillTotal] = useState('');
+    const [userSeat, setUserSeat] = useState(0);
 
     const history = useHistory();
 
@@ -25,36 +24,36 @@ function Bill() {
         return Intl.NumberFormat('en-US').format(num);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmitDineIn = (event) => {
         event.preventDefault();
-        projectFirestore.collection('bill').add({
-            userName,
+        projectFirestore.collection('dinein').add({
+            userSeat,
+            userCart,
+            total,
+            checked: false,
+            date: new Date().toLocaleString(),
+            userEmail: user.email
+        })
+        setUserAddress('');
+        setUserNumber('');
+        history.push('/admin');
+    }
+
+    const handleSubmitDeliveries = (event) => {
+        event.preventDefault();
+        projectFirestore.collection('deliveries').add({
             userAddress,
             userNumber,
             userCart,
-            billTotal,
+            total,
             checked: false,
-            date: new Date().toString(),
-            uid: user.uid,
+            date: new Date().toLocaleString(),
             userEmail: user.email
         })
-        setUserName('');
         setUserAddress('');
         setUserNumber('');
         history.push('/Pizzahouse/Pizza');
     }
-
-    useEffect(() => {
-        const getTotal = () => {
-            let total = 0;
-            userCart.forEach(cart => {
-                total += parseInt(cart.price) * (cart.quantity);
-            })
-            setBillTotal(total);
-        }
-
-        getTotal();
-    }, [billTotal, userCart])
 
     return (
         <Container className={classes.root}>
@@ -75,11 +74,11 @@ function Bill() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {userCart.map(cart => (
-                            <TableRow key={cart.id} >
+                        {currentCart.map((cart, index) => (
+                            <TableRow key={index} >
                                 <TableCell>{cart.name}</TableCell>
                                 <TableCell>{cart.quantity}</TableCell>
-                                <TableCell>{currencyFormat(parseInt(cart.price) * cart.quantity)} đ</TableCell>
+                                <TableCell>{currencyFormat((cart.price * cart.quantity))} đ</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -90,40 +89,67 @@ function Bill() {
                 component="h3"
                 className={classes.total}
             >
-                Tổng tiền: {currencyFormat(billTotal)} đ
+                Tổng tiền: {currencyFormat(total)} đ
             </Typography>
             <Typography variant="h5" className={classes.formTitle}>
                 Vui lòng điền đầy đủ địa chỉ liên lạc
             </Typography>
-            <Box className={classes.form}>
-                <TextField
-                    label="Tên của bạn"
-                    fullWidth
-                    className={classes.input}
-                    value={userName}
-                    onChange={(event) => setUserName(event.target.value)}
-                />
-                <TextField
-                    label="Nhập địa chỉ giao hàng"
-                    fullWidth
-                    value={userAddress}
-                    onChange={(event) => setUserAddress(event.target.value)}
-                />
-                <TextField
-                    label="Nhập số điện thoại liên lạc"
-                    fullWidth
-                    value={userNumber}
-                    onChange={(event) => setUserNumber(event.target.value)}
-                />
-            </Box>
-            <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                onClick={handleSubmit}
-            >
-                Đặt hàng
-            </Button>
+            {localStorage.getItem('checkRole') === 'user' &&
+                <>
+                    <Box className={classes.form}>
+                        <TextField
+                            label="Tên của bạn"
+                            fullWidth
+                            className={classes.input}
+                            defaultValue={user.displayName}
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        />
+                        <TextField
+                            label="Nhập địa chỉ giao hàng"
+                            fullWidth
+                            value={userAddress}
+                            onChange={(event) => setUserAddress(event.target.value)}
+                        />
+                        <TextField
+                            label="Nhập số điện thoại liên lạc"
+                            fullWidth
+                            value={userNumber}
+                            onChange={(event) => setUserNumber(event.target.value)}
+                        />
+                    </Box>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={handleSubmitDeliveries}
+                    >
+                        Đặt hàng
+                    </Button>
+                </>
+            }
+            {(localStorage.getItem('checkRole') === 'admin' || localStorage.getItem('checkRole') === 'staff') &&
+                <>
+                    <Box className={classes.form}>
+                        <TextField
+                            label="Số bàn"
+                            fullWidth
+                            className={classes.input}
+                            value={userSeat}
+                            onChange={(event) => setUserSeat(event.target.value)}
+                        />
+                    </Box>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={handleSubmitDineIn}
+                    >
+                        Gọi món
+                    </Button>
+                </>
+            }
         </Container>
     )
 }

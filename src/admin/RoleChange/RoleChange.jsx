@@ -1,52 +1,49 @@
-import AddForm from "./AddForm/AddForm";
-import UpdateForm from "./UpdateForm/UpdateForm";
-import ShowBill from "./ShowBill/ShowBill";
-
-import { Container, Typography, Table, TableContainer, Paper, TableBody, TableCell, TableHead, TableRow, TableFooter, TablePagination } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit';
+//material-ui
 import ClearIcon from '@material-ui/icons/Clear';
+import { Container, TextField, MenuItem, Typography, Table, TableContainer, Paper, TableBody, TableCell, TableHead, TableRow, TableFooter, TablePagination } from '@material-ui/core';
 import { useStyles } from './styles';
 
+//react
 import { useState } from 'react';
 
-import useFirestore from '../../hooks/useFirestore';
+//firebase
+import useRole from '../../hooks/useRole';
 import { projectFirestore } from '../../firebase/config';
 
-function Admin() {
+const RoleChange = () => {
     const classes = useStyles();
-    const { docs } = useFirestore('menu');
-    const [open, setOpen] = useState(false);
-    const [documents, setDocuments] = useState({});
+    const { docs } = useRole('users');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const rolesArray = ['admin', 'staff', 'user'];
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    const handleRole = (event, id) => {
+        projectFirestore.collection('users').doc(id).update({
+            role: event.target.value
+        })
+    }
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
-
-    const handleEdit = (doc) => {
-        setOpen(true);
-        setDocuments(doc);
-    }
-
     const handleClear = (id) => {
         if (window.confirm('Are you sure you want to delete?')) {
-            projectFirestore.collection('menu').doc(id).delete();
+            projectFirestore.collection('users').doc(id).delete();
         }
     }
 
+  
     return (
-        <Container className={classes.root}>
-            <ShowBill />
-            <AddForm />
+        <Container>
             <Typography variant="h3" component="h1" className={classes.title}>
-                Danh mục sản phẩm
+                Thay đổi phân quyền
             </Typography>
             <TableContainer component={Paper} className={classes.container}>
                 <Table sx={{ minWidth: 650 }} >
@@ -54,13 +51,8 @@ function Admin() {
                         <TableRow>
                             <TableCell className={classes.tableHeader} align="center">ID</TableCell>
                             <TableCell className={classes.tableHeader} align="center">Name</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Category</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Type</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Description</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Image</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Price small</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Price medium</TableCell>
-                            <TableCell className={classes.tableHeader} align="center">Price big</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Email</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Role</TableCell>
                             <TableCell className={classes.tableHeader} align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -70,22 +62,26 @@ function Admin() {
                             : docs
                         ).map((doc) => (
                             <TableRow key={doc.id}>
-                                <TableCell align="center">{doc.id}</TableCell>
+                                <TableCell align="center">{doc.uid}</TableCell>
                                 <TableCell align="center">{doc.name}</TableCell>
-                                <TableCell align="center">{doc.category}</TableCell>
-                                <TableCell align="center">{doc.type}</TableCell>
-                                <TableCell align="center">{doc.description}</TableCell>
+                                <TableCell align="center">{doc.email}</TableCell>
                                 <TableCell align="center">
-                                    <img src={doc.image} width="100" height="100" alt="menu" />
+                                    <TextField
+                                        select
+                                        value={doc.role}
+                                        onChange={(event) => handleRole(event, doc.id)}
+                                    >
+                                        {rolesArray.map((role, index) => (
+                                            <MenuItem 
+                                                key={index} 
+                                                value={role}
+                                            >
+                                                {role}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
                                 </TableCell>
-                                <TableCell align="center">{doc.priceSmall}</TableCell>
-                                <TableCell align="center">{doc.priceMedium}</TableCell>
-                                <TableCell align="center">{doc.priceBig}</TableCell>
                                 <TableCell align="center">
-                                    <EditIcon
-                                        className={classes.editIcon}
-                                        onClick={() => handleEdit(doc)}
-                                    />
                                     <ClearIcon
                                         className={classes.clearIcon}
                                         onClick={() => handleClear(doc.id)}
@@ -108,13 +104,8 @@ function Admin() {
                     </TableFooter>
                 </Table>
             </TableContainer>
-            <UpdateForm
-                open={open}
-                documents={documents}
-                setOpen={setOpen}
-            />
         </Container>
     )
 }
 
-export default Admin
+export default RoleChange

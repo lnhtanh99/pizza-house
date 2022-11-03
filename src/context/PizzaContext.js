@@ -12,6 +12,8 @@ function PizzaProvider({ children }) {
     const [openModal, setOpenModal] = useState(false);
     const [select, setSelect] = useState({});
     const [userCart, setUserCart] = useState([]);
+    const [currentCart, setCurrentCart] = useState([]);
+    const [total, setTotal] = useState(0);
 
     const filters = [
         {
@@ -50,17 +52,16 @@ function PizzaProvider({ children }) {
     return (
         <PizzaContext.Provider 
             value={{ 
-                isPizza, 
-                setIsPizzas, 
+                isPizza, setIsPizzas, 
                 filters,
                 openModal, 
                 setOpenModal,
                 handleOpenModal,
                 handleCloseModal,
-                select,
-                setSelect,
-                userCart,
-                setUserCart,
+                select,setSelect,
+                userCart,setUserCart,
+                currentCart, setCurrentCart,
+                total, setTotal
             }}
         >
             {children}

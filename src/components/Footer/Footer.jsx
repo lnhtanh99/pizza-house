@@ -5,7 +5,7 @@ function Footer() {
     const classes = useStyles();
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed" style={{ backgroundColor: '#004666' }} className={classes.footer}>
             <Toolbar className={classes.root}>
                 <Container>
                     <Grid container justifyContent="center">

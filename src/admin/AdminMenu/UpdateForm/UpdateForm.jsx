@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 import { projectFirestore } from '../../../firebase/config';
 
-function UpdateForm({ open, setOpen, documents }) {
+function UpdateForm({open, documents, setOpen}) {
     const classes = useStyles();
     const {
         id,

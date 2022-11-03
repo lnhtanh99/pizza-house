@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
         paddingBottom: '30px'
     },
     button: {
-        marginBottom: '30px',
+        marginBottom: '120px',
     },
     formTitle: {
         fontWeight: 'bold',

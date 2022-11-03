@@ -1,14 +1,21 @@
+//mui
 import { Modal as MUIModal, Box, Typography, Card, CardMedia, CardContent, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Button } from '@material-ui/core';
-import { PizzaContext } from '../../../context/PizzaContext';
-import { useContext, useState, useEffect } from 'react';
 import { useStyles } from './styles';
 
+//context
+import { PizzaContext } from '../../../context/PizzaContext';
+
+//react
+import { useContext, useState, useEffect } from 'react';
+
+//firebase
 import firebase from 'firebase/app';
 import { projectFirestore, projectAuth } from '../../../firebase/config';
 import { useAuthState } from "react-firebase-hooks/auth";
+import useFirestore from '../../../hooks/useFirestore';
 
 function Modal() {
-    const { openModal, setOpenModal, handleCloseModal, select, isPizza } = useContext(PizzaContext);
+    const { openModal, setOpenModal, handleCloseModal, select, isPizza, userCart } = useContext(PizzaContext);
     const [user] = useAuthState(projectAuth);
 
     const [name, setName] = useState('');
@@ -16,37 +23,104 @@ function Modal() {
     const [size, setSize] = useState('Cỡ 7 inch');
     const [price, setPrice] = useState('');
     const [base, setBase] = useState('Đế vừa');
-
+    const { docs } = useFirestore('users');
     const classes = useStyles();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setName(select.name);
         setDescription(select.description);
-        if (user) {
+
+        const check = userCart.find(cart => cart.uid === user.uid);
+
+        if (check) {
             if (isPizza) {
-                projectFirestore.collection('cart').add({
-                    name,
-                    description,
-                    size,
-                    price,
-                    base,
-                    quantity: 1,
-                    uid: user.uid,
+                projectFirestore.collection('cart').doc(check.id).update({
+                    cart: [
+                        ...check.cart,
+                        {
+                            name,
+                            description,
+                            size,
+                            price,
+                            base,
+                            quantity: 1,
+                        }
+                    ]
                 })
             } else {
-                projectFirestore.collection('cart').add({
-                    name,
-                    description,
-                    price,
-                    quantity: 1,
-                    uid: user.uid,
+                projectFirestore.collection('cart').doc(check.id).update({
+                    cart: [
+                        ...check.cart,
+                        {
+                            name,
+                            description,
+                            price,
+                            quantity: 1,
+                        }
+                    ]
                 })
             }
+
         } else {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            projectAuth.signInWithPopup(provider);
+            if (user) {
+                if (isPizza) {
+                    projectFirestore.collection('cart').add({
+                        uid: user.uid,
+                        name: user.displayName,
+                        cart: [{
+                            name,
+                            description,
+                            size,
+                            price,
+                            base,
+                            quantity: 1,
+                        }]
+                    })
+                } else {
+                    projectFirestore.collection('cart').add({
+                        uid: user.uid,
+                        name: user.displayName,
+                        cart: [{
+                            name,
+                            description,
+                            price,
+                            quantity: 1,
+                        }]
+                    })
+                }
+            } else {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                projectAuth.signInWithPopup(provider)
+                    .then(({ user }) => {
+                        const check = docs.find(doc => doc.uid === user.uid);
+                        if (check) {
+                            localStorage.setItem('currentUser', JSON.stringify(check));
+                            if (check.role === 'admin') {
+                                localStorage.setItem('checkRole', 'admin'); //
+                            } else if (check.role === 'staff') {
+                                localStorage.setItem('checkRole', 'staff');
+                            } else {
+                                localStorage.setItem('checkRole', 'user');
+                            }
+                        } else {
+                            user.role = 'user';
+                            projectFirestore.collection('users').add({
+                                name: user.displayName,
+                                uid: user.uid,
+                                email: user.email,
+                                role: user.role,
+                            })
+
+                            localStorage.setItem('checkRole', 'user');
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }
         }
+
 
         setOpenModal(false);
     }
@@ -58,16 +132,20 @@ function Modal() {
     useEffect(() => {
         setName(select.name);
         setDescription(select.description);
-        setPrice(select.priceSmall);
-        if (size === 'Cỡ 9 inch') {
-            setPrice(select.priceMedium);
-        } else if (size === 'Cỡ 12 inch') {
-            setPrice(select.priceBig);
-        } else {
+        if (!isPizza) {
             setPrice(select.priceSmall);
+        } else {
+            if (size === 'Cỡ 9 inch') {
+                setPrice(select.priceMedium);
+            } else if (size === 'Cỡ 12 inch') {
+                setPrice(select.priceBig);
+            } else {
+                setPrice(select.priceSmall);
+            }
         }
+    }, [select, size, isPizza]);
 
-    }, [select, size]);
+
     return (
         <MUIModal
             open={openModal}

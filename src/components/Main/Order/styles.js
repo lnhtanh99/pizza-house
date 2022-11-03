@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         textTransform: 'uppercase',
         fontSize: '30px',
-        marginTop: '20px'
+        margin: '30px 0'
     },
     tableHeader:{
         fontWeight: 'bold',

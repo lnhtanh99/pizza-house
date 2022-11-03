@@ -2,9 +2,10 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
     root: {
-        margin: '50px auto',
+        margin: '50px auto 130px ',
         border: '2px solid black',
         maxWidth: '600px',
+        textAlign: 'center',
     },
     title: {
         fontWeight: 'bold',

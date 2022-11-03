@@ -13,36 +13,39 @@ import firebase from 'firebase/app'
 
 import { PizzaContext } from '../../../context/PizzaContext';
 
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 function Cart({ cartOpen, setCartOpen }) {
     const [user] = useAuthState(projectAuth);
     const classes = useStyles();
-    const { userCart, setUserCart } = useContext(PizzaContext);
+    const { setUserCart, currentCart, setCurrentCart, total, setTotal } = useContext(PizzaContext);
+    const [cartID, setCartID] = useState('');
 
-    const handleClear = (id) => {
+    const handleClear = (updateCart, id) => {
+        const check = currentCart.find(cart => cart === updateCart);
         if (window.confirm('Are you sure you want to delete?')) {
-            projectFirestore.collection('cart').doc(id).delete();
+            projectFirestore.collection('cart').doc(id).update({
+                cart: firebase.firestore.FieldValue.arrayRemove(check)
+            })
         }
     }
 
-    const getTotal = () => {
-        let total = 0;
-        userCart.forEach(cart => {
-            total += parseInt(cart.price) * (cart.quantity);
-        })
+    const increase = (updateCart, id) => {
+        updateCart.quantity += 1;
 
-        return total;
-    }
-
-    const increase = (id) => {
-        projectFirestore.collection('cart').doc(id).update("quantity", firebase.firestore.FieldValue.increment(1));
+        projectFirestore.collection('cart').doc(id).update({
+            cart: currentCart
+        });
 
     }
-    const decrease = (id, quantity) => {
+    const decrease = (updateCart, id, quantity) => {
         if (quantity > 1) {
-            projectFirestore.collection('cart').doc(id).update("quantity", firebase.firestore.FieldValue.increment(-1));
+            updateCart.quantity -= 1;
+
+            projectFirestore.collection('cart').doc(id).update({
+                cart: currentCart
+            });
         }
     }
 
@@ -50,23 +53,29 @@ function Cart({ cartOpen, setCartOpen }) {
         return Intl.NumberFormat('en-US').format(num);
     }
 
-
     useEffect(() => {
         if (user) {
             projectFirestore.collection('cart')
+                .orderBy('name', 'asc')
                 .where('uid', '==', user.uid)
                 .onSnapshot((snap) => {
                     let documents = [];
                     snap.forEach(doc => {
+                        setCartID(doc.id);
                         documents.push({
                             ...doc.data(),
                             id: doc.id
                         })
                     });
                     setUserCart(documents);
+                    if (documents.length > 0) {
+                        setCurrentCart(documents[0].cart);
+                        setTotal(documents[0].cart.reduce((n, { price, quantity }) => n + (parseInt(price) * quantity), 0));
+                    }
                 })
         }
-    }, [user, setUserCart]);
+    }, [user, total, setCurrentCart, setTotal, setUserCart, setCartID]);
+
     return (
         <Box xs={{ display: 'flex' }}>
             <Drawer
@@ -85,7 +94,7 @@ function Cart({ cartOpen, setCartOpen }) {
                     >
                         <ChevronRightIcon />
                     </IconButton>
-                    {!user || userCart.length === 0 ?
+                    {!user || currentCart.length === 0 ?
                         <>
                             <Typography
                                 variant="h6"
@@ -105,9 +114,9 @@ function Cart({ cartOpen, setCartOpen }) {
                             >
                                 Giỏ hàng
                             </Typography>
-                            {userCart.map(cart => (
-                                <Card key={cart.id} className={classes.cartContainer}>
-                                    <CardContent>
+                            {currentCart.map((cart, index) =>
+                                <Card className={classes.cartContainer} key={index}>
+                                    <CardContent >
                                         <Typography className={classes.cartName}>
                                             {cart.name}
                                         </Typography>
@@ -119,7 +128,7 @@ function Cart({ cartOpen, setCartOpen }) {
                                             <IconButton
                                                 color="secondary"
                                                 className={classes.quantityButton}
-                                                onClick={() => decrease(cart.id, cart.quantity)}
+                                                onClick={() => decrease(cart, cartID, cart.quantity)}
                                             >
                                                 <ExposureNeg1Icon />
                                             </IconButton>
@@ -129,24 +138,24 @@ function Cart({ cartOpen, setCartOpen }) {
                                             <IconButton
                                                 color="primary"
                                                 className={classes.quantityButton}
-                                                onClick={() => increase(cart.id)}
+                                                onClick={() => increase(cart, cartID)}
                                             >
                                                 <ExposurePlus1Icon />
                                             </IconButton>
                                         </Typography>
                                         <IconButton
                                             className={classes.clearIcon}
-                                            onClick={() => handleClear(cart.id)}
+                                            onClick={() => handleClear(cart, cartID)}
                                         >
                                             <ClearIcon />
                                         </IconButton>
                                     </CardContent>
                                 </Card>
-                            ))}
+                            )}
                         </>
                     }
                 </Box>
-                {userCart.length > 0 &&
+                {currentCart.length > 0 &&
                     <Button
                         className={classes.total}
                         color="primary"
@@ -158,7 +167,7 @@ function Cart({ cartOpen, setCartOpen }) {
                             component={RouterLink} to='/Bill'
                             onClick={() => setCartOpen(false)}
                         >
-                            Thực hiện thanh toán: {currencyFormat(getTotal())} đ
+                            Thực hiện thanh toán: {currencyFormat(total)} đ
                         </MaterialLink>
                     </Button>
                 }

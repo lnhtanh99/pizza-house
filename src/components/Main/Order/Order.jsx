@@ -12,11 +12,12 @@ function Order() {
     const classes = useStyles();
     const [user] = useAuthState(projectAuth);
     const [userBill, setUserBill] = useState([]);
+    const [userBillID, setUserBillID] = useState('');
 
     useEffect(() => {
         if (user) {
-            projectFirestore.collection('bill')
-                .where('uid', '==', user.uid)
+            projectFirestore.collection('deliveries')
+                .where('userEmail', '==', user.email)
                 .onSnapshot((snap) => {
                     let documents = [];
                     snap.forEach(doc => {
@@ -26,9 +27,13 @@ function Order() {
                         })
                     });
                     setUserBill(documents);
+                    if (documents.length > 0) {
+                        setUserBillID(documents[0].userCart[0].uid);
+                    }
                 })
         }
     }, [user, setUserBill]);
+
     return (
         <Container className={classes.container}>
             <Typography className={classes.title}>
@@ -39,6 +44,8 @@ function Order() {
                     <TableHead>
                         <TableRow>
                             <TableCell className={classes.tableHeader} align="center">Mã đơn hàng</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Thông tin khách hàng</TableCell>
+                            <TableCell className={classes.tableHeader} align="center">Thông tin đơn hàng</TableCell>
                             <TableCell className={classes.tableHeader} align="center">Tình trạng đơn hàng</TableCell>
                         </TableRow>
                     </TableHead>
@@ -46,6 +53,26 @@ function Order() {
                         {userBill && userBill.map(bill => (
                             <TableRow key={bill.id}>
                                 <TableCell align="center">{bill.id}</TableCell>
+                                <TableCell align="center">
+                                    <Typography >
+                                        Tên: {bill.userCart[0].name} 
+                                    </Typography>
+                                    <Typography>
+                                        Số điện thoại: {bill.userNumber}
+                                    </Typography>
+                                    <Typography>
+                                        Địa chỉ: {bill.userAddress}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell align="center">
+                                    {bill.userCart[0].cart.map((item, index) => (
+                                        <div key={index}>
+                                            <Typography>
+                                                {item.name} x {item.quantity}
+                                            </Typography>
+                                        </div>
+                                    ))}
+                                </TableCell>
                                 <TableCell align="center">{bill.checked ? 'Đơn hàng đã được xác nhận' : 'Đơn hàng chưa được xác nhận'}</TableCell>
                             </TableRow>
                         ))}
