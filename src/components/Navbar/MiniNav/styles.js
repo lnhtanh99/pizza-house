@@ -8,6 +8,12 @@ export const useStyles = makeStyles((theme) => ({
         borderBottom: '1px solid black',
         marginTop: '84px',
     },
+    rootAdmin: {
+        backgroundColor: 'white',
+        color: 'black',
+        fontFamily: 'Montserrat',
+        borderBottom: '1px solid black',
+    },
     cartOpen: {
         width: 'calc(100% - 470px)',
         display: 'flex',

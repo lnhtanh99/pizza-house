@@ -47,7 +47,12 @@ function Deliveries() {
                 });
                 setUserBill(documents);
             })
+            return () => {
+                setUserBill([])// This worked for me
+            };
     }, [setUserBill])
+
+    console.log(userBill);
 
     return (
         <Container className={classes.container}>

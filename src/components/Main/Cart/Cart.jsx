@@ -67,12 +67,16 @@ function Cart({ cartOpen, setCartOpen }) {
                             id: doc.id
                         })
                     });
-                    setUserCart(documents);
+                    setUserCart(documents);;
                     if (documents.length > 0) {
                         setCurrentCart(documents[0].cart);
                         setTotal(documents[0].cart.reduce((n, { price, quantity }) => n + (parseInt(price) * quantity), 0));
                     }
                 })
+            return () => {
+                setUserCart([]);
+                setCurrentCart([])
+            };
         }
     }, [user, total, setCurrentCart, setTotal, setUserCart, setCartID]);
 

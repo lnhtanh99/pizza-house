@@ -24,6 +24,7 @@ import { PizzaContext } from '../../context/PizzaContext';
 
 //hooks
 import useFirestore from '../../hooks/useFirestore';
+import AdminMiniNav from './MiniNav/AdminMiniNav';
 
 function Navbar() {
     const [cartOpen, setCartOpen] = useState(false);
@@ -226,7 +227,7 @@ function Navbar() {
                                     </ListItemText>
                                 </ListItem>
                             }
-                            
+
                             {(localStorage.getItem('checkRole') === 'admin' || localStorage.getItem('checkRole') === 'staff') &&
                                 <ListItem>
                                     <ListItemText>
@@ -247,7 +248,16 @@ function Navbar() {
                 </Toolbar>
             </Drawer>
             <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
-            <MiniNav cartOpen={cartOpen} />
+            {(localStorage.getItem('checkRole') === 'user' || localStorage.getItem('checkRole') === 'null') 
+            ?
+                <MiniNav cartOpen={cartOpen} /> 
+            :
+                <>
+                    <MiniNav cartOpen={cartOpen} />
+                    <AdminMiniNav cartOpen={cartOpen} />
+                </>
+            }
+
         </ >
     )
 }

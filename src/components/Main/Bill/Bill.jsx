@@ -1,20 +1,25 @@
 import { useStyles } from './styles';
-import { Container, Typography, Table, TableContainer, Box, TableBody, TableCell, TableHead, TableRow, TextField, Button } from '@material-ui/core'
+import { Container, Typography, Table, TableContainer, Box, TableBody, TableCell, TableHead, TableRow, TextField, Button, Grid } from '@material-ui/core'
+import WeekendIcon from '@material-ui/icons/Weekend';
 
 import { PizzaContext } from '../../../context/PizzaContext';
 
 import { projectFirestore, projectAuth } from '../../../firebase/config';
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function Bill() {
     const classes = useStyles();
     const { userCart, currentCart, total } = useContext(PizzaContext);
+    const {phone} = require('phone');
+
     const [userAddress, setUserAddress] = useState('');
-    const [userNumber, setUserNumber] = useState('');
+    const [userNumber, setUserNumber] = useState(0);
     const [userSeat, setUserSeat] = useState(0);
+    const [availableSeat, setAvailableSeat] = useState([]);
+    const [seatID, setSeatID] = useState('');
 
     const history = useHistory();
 
@@ -22,6 +27,11 @@ function Bill() {
 
     const currencyFormat = (num) => {
         return Intl.NumberFormat('en-US').format(num);
+    }
+
+    const handleSeat = (id, number) => {
+        setSeatID(id);
+        setUserSeat(number);
     }
 
     const handleSubmitDineIn = (event) => {
@@ -34,6 +44,10 @@ function Bill() {
             date: new Date().toLocaleString(),
             userEmail: user.email
         })
+        projectFirestore.collection('seat').doc(seatID).update({
+            total,
+            available: false
+        });
         setUserAddress('');
         setUserNumber('');
         history.push('/admin');
@@ -41,19 +55,44 @@ function Bill() {
 
     const handleSubmitDeliveries = (event) => {
         event.preventDefault();
-        projectFirestore.collection('deliveries').add({
-            userAddress,
-            userNumber,
-            userCart,
-            total,
-            checked: false,
-            date: new Date().toLocaleString(),
-            userEmail: user.email
-        })
-        setUserAddress('');
-        setUserNumber('');
-        history.push('/Pizzahouse/Pizza');
+        if(phone(userNumber, {country: 'VNM'}).isValid) {
+            projectFirestore.collection('deliveries').add({
+                userAddress,
+                userNumber,
+                userCart,
+                total,
+                checked: false,
+                date: new Date().toLocaleString(),
+                userEmail: user.email
+            })
+            setUserAddress('');
+            setUserNumber('');
+            history.push('/Pizzahouse/Pizza');
+        } else {
+            alert('Vui lòng nhập đúng số điện thoại!')
+        }
+
     }
+
+    useEffect(() => {
+        projectFirestore.collection('seat')
+            .orderBy('number', 'asc')
+            .where('available', '==', true)
+            .onSnapshot((snap) => {
+                let documents = [];
+                snap.forEach(doc => {
+                    documents.push({
+                        ...doc.data(),
+                        id: doc.id
+                    })
+                });
+                setAvailableSeat(documents);
+            })
+        return () => {
+            setAvailableSeat([]);
+        };
+    }, [setAvailableSeat])
+    
 
     return (
         <Container className={classes.root}>
@@ -91,11 +130,11 @@ function Bill() {
             >
                 Tổng tiền: {currencyFormat(total)} đ
             </Typography>
-            <Typography variant="h5" className={classes.formTitle}>
-                Vui lòng điền đầy đủ địa chỉ liên lạc
-            </Typography>
             {localStorage.getItem('checkRole') === 'user' &&
-                <>
+                <Box className={classes.info}>
+                    <Typography variant="h5" className={classes.formTitle}>
+                        Vui lòng điền đầy đủ địa chỉ liên lạc
+                    </Typography>
                     <Box className={classes.form}>
                         <TextField
                             label="Tên của bạn"
@@ -127,10 +166,27 @@ function Bill() {
                     >
                         Đặt hàng
                     </Button>
-                </>
+                </Box>
             }
             {(localStorage.getItem('checkRole') === 'admin' || localStorage.getItem('checkRole') === 'staff') &&
-                <>
+                <Box className={classes.info}>
+                    <Typography variant="h5" className={classes.formTitle}>
+                        Chọn bàn
+                    </Typography>
+                    <Grid container justifyContent="center" alignItems="center">
+                        {availableSeat && availableSeat.map(seat =>
+                            <Grid item xs={4} key={seat.id}>
+                                <Button
+                                    variant="contained"
+                                    className={seat.available ? classes.buttonSeat : classes.buttonRed}
+                                    startIcon={<WeekendIcon />}
+                                    onClick={() => handleSeat(seat.id, seat.number)}
+                                >
+                                    Seat {seat.number}
+                                </Button>
+                            </Grid>
+                        )}
+                    </Grid>
                     <Box className={classes.form}>
                         <TextField
                             label="Số bàn"
@@ -148,7 +204,7 @@ function Bill() {
                     >
                         Gọi món
                     </Button>
-                </>
+                </Box>
             }
         </Container>
     )

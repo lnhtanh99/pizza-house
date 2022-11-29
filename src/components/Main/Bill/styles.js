@@ -14,6 +14,9 @@ export const useStyles = makeStyles((theme) => ({
         margin: '30px',
         textAlign: 'right',
     }, 
+    info: {
+        marginBottom: '80px',
+    },
     form: {
         width: '400px',
         margin: 'auto',
@@ -24,5 +27,17 @@ export const useStyles = makeStyles((theme) => ({
     },
     formTitle: {
         fontWeight: 'bold',
+    },
+    buttonSeat: {
+        padding: '10px 30px',
+        margin: '30px',
+        backgroundColor: theme.palette.primary.main,
+        color: 'white'
+    },
+    buttonRed: {
+        backgroundColor: theme.palette.secondary.main,
+        color: 'white',
+        padding: '10px 30px',
+        margin: '30px',
     }
 }));

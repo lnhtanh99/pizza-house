@@ -68,7 +68,7 @@ const Seat = () => {
 
         return () => {
             setSeatState([]); 
-            setUserBill([])// This worked for me
+            setUserBill([])
         };
     }, [setSeatState, setUserBill]);
 
