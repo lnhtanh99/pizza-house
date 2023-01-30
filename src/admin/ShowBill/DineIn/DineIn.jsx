@@ -60,7 +60,7 @@ function ShowBill() {
                     </TableHead>
                     <TableBody>
                         {userBill && userBill.map((bill) => (
-                            <TableRow key={bill.id}>
+                            <TableRow key={bill.id} className={bill.checked  ? classes.rowDone : ''}>
                                 <TableCell align="center">{bill.userSeat}</TableCell>
                                 <TableCell align="center">{bill.date}</TableCell>
                                 <TableCell align="center">{bill.userCart[0].cart.map((cart, index) => (

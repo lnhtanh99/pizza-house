@@ -1,5 +1,5 @@
 import { useStyles } from './styles';
-import { Container, Typography, Table, TableContainer, Paper, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Container, Typography, MenuItem, TextField, Table, TableContainer, Paper, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -12,19 +12,40 @@ function Deliveries() {
     const classes = useStyles();
     const [userBill, setUserBill] = useState([]);
 
+    const statusArray = ["Chưa xác nhận", "Đã xác nhận", "Nhà hàng đang chuẩn bị món", "Đang giao hàng", "Đã giao hàng", "Đã hoàn thành"]
+
     const currencyFormat = (num) => {
         return Intl.NumberFormat('en-US').format(num);
     }
 
     const handleAccept = (id) => {
-        if (window.confirm('Xác nhận đơn hàng?')) {
-            projectFirestore.collection('deliveries').doc(id).update("checked", true);
+        if (window.confirm('Hoàn tất đơn hàng?')) {
+            projectFirestore.collection('deliveries').doc(id).update({
+                checked: true,
+                status: "Đã hoàn thành"
+            });
         }
     }
 
+    const handleStatus = (event, id) => {
+        projectFirestore.collection('deliveries').doc(id).update("status", event.target.value);
+        if(event.target.value === 'Đã hoàn thành') {
+            if (window.confirm('Hoàn tất đơn hàng?')) {
+                projectFirestore.collection('deliveries').doc(id).update("checked", true)
+            }
+        } else {
+            projectFirestore.collection('deliveries').doc(id).update({
+                checked: false,
+                status: event.target.value
+            });
+        }
+    }
     const handleDeny = (id) => {
-        if (window.confirm('Không xác nhận đơn hàng?')) {
-            projectFirestore.collection('deliveries').doc(id).update("checked", false);
+        if (window.confirm('Chưa hoàn tất đơn hàng?')) {
+            projectFirestore.collection('deliveries').doc(id).update({
+                checked: false,
+                status: "Đã xác nhận"
+            });
         }
     }
 
@@ -47,12 +68,11 @@ function Deliveries() {
                 });
                 setUserBill(documents);
             })
-            return () => {
-                setUserBill([])// This worked for me
-            };
+        return () => {
+            setUserBill([])// This worked for me
+        };
     }, [setUserBill])
 
-    console.log(userBill);
 
     return (
         <Container className={classes.container}>
@@ -71,9 +91,9 @@ function Deliveries() {
                             <TableCell className={classes.tableHeader} align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody >
                         {userBill && userBill.map((bill) => (
-                            <TableRow key={bill.id}>
+                            <TableRow key={bill.id} className={bill.status === 'Đã hoàn thành' ? classes.rowDone : ''}>
                                 <TableCell align="center">{bill.userCart[0].name}</TableCell>
                                 <TableCell align="center">{bill.date}</TableCell>
                                 <TableCell align="center">{bill.userCart[0].cart.map((cart, index) => (
@@ -97,7 +117,22 @@ function Deliveries() {
                                 ))}
                                 </TableCell>
                                 <TableCell align="center">{currencyFormat(bill.total)} đ</TableCell>
-                                <TableCell align="center">{bill.checked ? 'Đã xác nhận' : 'Chưa xác nhận'}</TableCell>
+                                <TableCell align="center">
+                                    <TextField
+                                        select
+                                        value={bill.status}
+                                        onChange={(event) => handleStatus(event, bill.id)}
+                                    >
+                                        {statusArray.map((role, index) => (
+                                            <MenuItem
+                                                key={index}
+                                                value={role}
+                                            >
+                                                {role}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                </TableCell>
                                 <TableCell align="center">
                                     {bill.checked
                                         ?

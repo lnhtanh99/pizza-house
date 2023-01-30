@@ -61,6 +61,7 @@ function Bill() {
                 userNumber,
                 userCart,
                 total,
+                status: 'Chưa xác nhận',
                 checked: false,
                 date: new Date().toLocaleString(),
                 userEmail: user.email

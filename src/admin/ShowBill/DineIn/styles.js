@@ -12,6 +12,9 @@ export const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         padding: '20px 0'
     },
+    rowDone: {
+        backgroundColor: '#bdbdbd'
+    },
     tableItem: {
         paddingBottom: '10px'
     },
