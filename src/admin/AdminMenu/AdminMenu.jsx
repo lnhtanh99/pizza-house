@@ -5,7 +5,7 @@ import { Container, Typography, Table, TableContainer, Paper, TableBody, TableCe
 import { useStyles } from './styles';
 
 //react
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 //firebase
 import useFirestore from '../../hooks/useFirestore';
@@ -18,9 +18,11 @@ import UpdateForm from './UpdateForm/UpdateForm';
 const AdminMenu = () => {
     const classes = useStyles();
     const { open, setOpen, documents, setDocuments } = useContext(AdminContext);
-    const { docs } = useFirestore('menu');
+    // const { docs } = useFirestore('menu');
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [docs, setDocs] = useState([])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -42,6 +44,22 @@ const AdminMenu = () => {
             projectFirestore.collection('menu').doc(id).delete();
         }
     }
+
+    useEffect(() => {
+        const unsub = projectFirestore.collection('menu')
+            .orderBy('type', 'desc')
+            .onSnapshot((snap) => {
+                let documents = [];
+                snap.forEach(doc => {
+                    documents.push({
+                        ...doc.data(), 
+                        id: doc.id
+                    })
+                });
+                setDocs(documents)
+            })
+        return () => unsub();    
+    },[]);
 
     return (
         <Container>
@@ -102,7 +120,7 @@ const AdminMenu = () => {
                     <TableFooter>
                         <TableRow>
                             <TablePagination
-                                rowsPerPageOptions={[5, 10, 25]}
+                                rowsPerPageOptions={[5, 10, 25, docs.length]}
                                 count={docs.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}

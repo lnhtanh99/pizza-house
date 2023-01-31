@@ -248,7 +248,7 @@ function Navbar() {
                 </Toolbar>
             </Drawer>
             <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
-            {(localStorage.getItem('checkRole') === 'user' || localStorage.getItem('checkRole') === 'null') 
+            {(localStorage.getItem('checkRole') === 'user' || localStorage.getItem('checkRole') === 'null' || !localStorage.getItem('checkRole')) 
             ?
                 <MiniNav cartOpen={cartOpen} /> 
             :

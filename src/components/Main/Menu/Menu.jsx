@@ -17,21 +17,12 @@ import Modal from '../Modal/Modal';
 //hooks
 import useData from '../../../hooks/useData';
 
-//carousel
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-
-import carousel1 from '../../../assets/carousel1.png';
-import carousel2 from '../../../assets/carousel2.jpg';
-import carousel3 from '../../../assets/carousel3.jpg';
-import carousel4 from '../../../assets/carousel4.jpg';
-import carousel5 from '../../../assets/carousel5.png';
-import carousel6 from '../../../assets/carousel6.jpg';
 
 function Menu() {
     const { category } = useParams();
-    const [menu, setMenu] = useState([]);
     const { isPizza, setIsPizzas, filters } = useContext(PizzaContext);
+
+    const [menu, setMenu] = useState([]);
     const [chosenPizza, setChosenPizza] = useState([]);
     const [chosenOther, setChosenOther] = useState([]);
 
