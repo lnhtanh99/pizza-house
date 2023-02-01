@@ -60,20 +60,6 @@ function Menu() {
 
     return (
         <Box className={classes.root}>
-            {/* <Carousel
-                thumbWidth={200}
-                autoPlay
-                interval={2000}
-                infiniteLoop
-            >
-                <img src={carousel1} alt="carousel1"/>
-                <img src={carousel2} alt="carousel2"/>
-                <img src={carousel3} alt="carousel3"/>
-                <img src={carousel4} alt="carousel4"/>
-                <img src={carousel5} alt="carousel5"/>
-                <img src={carousel6} alt="carousel6"/>
-
-            </Carousel> */}
             <div className={classes.main}>
                 {isPizza ? filters.map(filter => (
                     <Button

@@ -26,6 +26,6 @@ export const useStyles = makeStyles((theme) => ({
         cursor: 'pointer'
     },
     container: {
-        paddingBottom: '120px'
+        marginBottom: '250px'
     }
 }));

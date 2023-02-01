@@ -21,7 +21,7 @@ function Title({ smallPrice, mediumPrice, bigPrice, type, other }) {
                         {type}
                         <Star className={classes.starIcon} />
                     </Typography>
-                    <Grid container spacing={0} style={{ marginBottom: '50px' }}>
+                    <Grid container spacing={0} style={{ marginBottom: '50px', justifyContent: 'center' }}>
                         <Grid item xs={3} className={classes.size}>
                             <img src="../../../assets/pizza-small.svg" alt="small-pizza" />
                             <Typography>
