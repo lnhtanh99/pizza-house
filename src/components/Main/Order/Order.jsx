@@ -73,7 +73,7 @@ function Order() {
                                         </div>
                                     ))}
                                 </TableCell>
-                                <TableCell align="center">{bill.checked ? 'Đơn hàng đã được xác nhận' : 'Đơn hàng chưa được xác nhận'}</TableCell>
+                                <TableCell align="center">{bill.status}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
